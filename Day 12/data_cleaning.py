@@ -21,10 +21,16 @@ print("\nMissing values count: ")
 print(df.isnull().sum())   
 
 # Fill numeric with mean
-df["age"].fillna(df["age"].mean(), inplace=True)
+df["age"] = df["age"].fillna(df["age"].mean())
 
 # Fill categorical with "Unknown"
-df["city"].fillna("Unknown", inplace=True)
+df["city"] = df["city"].fillna("Unknown")
+
+# both can be written as like this
+df = df.fillna({
+    "age" : df["age"].mean(),
+    "city" : "Unknown"
+})
 
 # Exercise 2 — Duplicates ###########################################
     # Find and remove duplicates
@@ -32,7 +38,7 @@ df["city"].fillna("Unknown", inplace=True)
 print("\nDuplicate rows: ")
 print(df.duplicated())
 
-df.drop_duplicates(inplace=True)
+df = df.drop_duplicates()
 
 # Exercise 3 — Encoding     #########################################
     # Convert categorical column using one-hot encoding
